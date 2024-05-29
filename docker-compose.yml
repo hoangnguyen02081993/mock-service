@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    ports:
+      - "10000:10000"
+    environment:
+      - TZ=UTC
+      - NODE_ENV=development
+      - PORT=10000
+      - SERVER_PUBLIC_KEY=U8I8mgXtMLlbj1pvNYQuVYQeGFDu3B3I3QkH4g/l/AE=
+      - SERVER_PRESHARED_KEY=iOzOnZfIQw7NyIaWPIwkS27q2o4RqfP0LK2t1u5DvU4=
