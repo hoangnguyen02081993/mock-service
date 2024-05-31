@@ -22,8 +22,8 @@ export class PeerController {
 
   @Delete()
   @HttpCode(204)
-  async removePeerProfile(@Query("clientPublicKey") clientPublicKey: string): Promise<void> {
-    console.log(`Receive the request to remove the peer with clientPublicKey:`, clientPublicKey)
+  async removePeerProfile(@Body() payload: any): Promise<void> {
+    console.log(`Receive the request to remove the peer with clientPublicKey:`, payload.clientPublicKey)
   }
 
   private randomAllowIps(prefix: string, subnetMask: number = 32) {
