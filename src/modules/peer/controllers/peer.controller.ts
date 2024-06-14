@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, HttpCode, Post, Query } from '@nestjs/common';
+import { Body, Controller, Delete, HttpCode, InternalServerErrorException, NotFoundException, Post, Query } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
 @Controller({
@@ -24,6 +24,13 @@ export class PeerController {
   @HttpCode(204)
   async removePeerProfile(@Body() payload: any): Promise<void> {
     console.log(`Receive the request to remove the peer with clientPublicKey:`, payload.clientPublicKey)
+    if (payload.clientPublicKey === 'notfoud-key') {
+      throw new NotFoundException(`The peer with clientPublicKey: ${payload.clientPublicKey} not found`);
+    } else if (payload.clientPublicKey === 'error-key') {
+      throw new InternalServerErrorException(`The peer with clientPublicKey: ${payload.clientPublicKey} has some error`);
+    } else if (payload.clientPublicKey === 'timeout-key') {
+      await new Promise(resolve => setTimeout(resolve, 60000));
+    }
   }
 
   private randomAllowIps(prefix: string, subnetMask: number = 32) {
